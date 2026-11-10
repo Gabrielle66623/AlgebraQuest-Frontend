@@ -1,0 +1,1566 @@
+[
+ {
+  "id": "factorizacion",
+  "nombre": "Factorización",
+  "icono": "🌱",
+  "color": "#00ff88",
+  "descripcion": "Aprende a descomponer expresiones algebraicas en productos.",
+  "desbloqueado": true,
+  "niveles": [
+   {
+    "id": 1,
+    "titulo": "Factor Común",
+    "icono": "🌱",
+    "videoUrl": "https://www.youtube.com/watch?v=JVym35FdT5A",
+    "teoria": {
+     "definicion": "Factorizar por factor común consiste en extraer el mayor factor que todos los términos comparten.",
+     "ejemplo": "12x + 24 = 12(x + 2)"
+    },
+    "preguntas": [
+     {
+      "tipo": "arrastrar",
+      "enunciado": "Factoriza: 20x + 30",
+      "opciones": [
+       "10(2x+3)",
+       "5(4x+6)",
+       "20(x+30)",
+       "2(10x+15)"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: 8x + 16",
+      "opciones": [
+       "8(x+2)",
+       "4(2x+4)",
+       "8(x+4)",
+       "2(4x+8)"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: 15x + 20",
+      "opciones": [
+       "5(3x+4)",
+       "3(5x+4)",
+       "5(3x+5)",
+       "15(x+20)"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: 9x² + 18x",
+      "opciones": [
+       "9x(x+2)",
+       "9(x²+2)",
+       "3x(3x+6)",
+       "18(x+1)"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: 14x + 21",
+      "opciones": [
+       "7(2x+3)",
+       "14(x+3)",
+       "7(x+3)",
+       "2(7x+21)"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: 18x² + 12x",
+      "opciones": [
+       "6x(3x+2)",
+       "6(3x²+2x)",
+       "3x(6x+4)",
+       "2x(9x+12)"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     }
+    ]
+   },
+   {
+    "id": 2,
+    "titulo": "Agrupación",
+    "icono": "🧩",
+    "teoria": {
+     "definicion": "Se agrupan los términos que comparten un factor común para formar dos productos que luego se combinan.",
+     "ejemplo": "x² + 3x + 2x + 6 = (x+2)(x+3)"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² + 3x + 2x + 6",
+      "opciones": [
+       "(x+2)(x+3)",
+       "(x+1)(x+6)",
+       "(x+2)(x+2)",
+       "(x+3)²"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: 3x² + 6x + x + 2",
+      "opciones": [
+       "(3x+1)(x+2)",
+       "(3x+2)(x+1)",
+       "(x+2)²",
+       "(3x+1)(x+1)"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: 2x² + 4x + 3x + 6",
+      "opciones": [
+       "(2x+3)(x+2)",
+       "(2x+2)(x+3)",
+       "(x+3)(x+2)",
+       "(2x+6)(x+1)"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² + 5x + 2x + 10",
+      "opciones": [
+       "(x+2)(x+5)",
+       "(x+1)(x+10)",
+       "(x+5)²",
+       "(x+2)(x+10)"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     }
+    ]
+   },
+   {
+    "id": 3,
+    "titulo": "Diferencia de Cuadrados",
+    "icono": "➖",
+    "teoria": {
+     "definicion": "Toda diferencia de dos cuadrados perfectos se factoriza como el producto de la suma por la diferencia de sus bases.",
+     "ejemplo": "a² - b² = (a+b)(a-b)  →  x² - 9 = (x+3)(x-3)"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² - 9",
+      "opciones": [
+       "(x+3)(x-3)",
+       "(x-3)²",
+       "(x+9)(x-1)",
+       "(x+3)²"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² - 16",
+      "opciones": [
+       "(x+4)(x-4)",
+       "(x-4)²",
+       "(x+8)(x-2)",
+       "(x+16)(x-1)"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: 4x² - 25",
+      "opciones": [
+       "(2x+5)(2x-5)",
+       "(4x+5)(x-5)",
+       "(2x-5)²",
+       "(4x+25)(x-1)"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: 9x² - 1",
+      "opciones": [
+       "(3x+1)(3x-1)",
+       "(3x-1)²",
+       "(9x+1)(x-1)",
+       "(3x+1)²"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² - 49",
+      "opciones": [
+       "(x+7)(x-7)",
+       "(x-7)²",
+       "(x+49)(x-1)",
+       "(x+7)²"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     }
+    ]
+   },
+   {
+    "id": 4,
+    "titulo": "Trinomio Cuadrado Perfecto",
+    "icono": "🔺",
+    "teoria": {
+     "definicion": "Un trinomio es cuadrado perfecto cuando dos de sus términos son cuadrados exactos y el restante es el doble producto de sus bases.",
+     "ejemplo": "a² + 2ab + b² = (a+b)²  →  x² + 6x + 9 = (x+3)²"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² + 6x + 9",
+      "opciones": [
+       "(x+3)²",
+       "(x+9)²",
+       "(x+3)(x-3)",
+       "(x+6)²"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² + 10x + 25",
+      "opciones": [
+       "(x+5)²",
+       "(x+25)²",
+       "(x+10)²",
+       "(x+5)(x-5)"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: 4x² + 12x + 9",
+      "opciones": [
+       "(2x+3)²",
+       "(4x+3)²",
+       "(2x+9)²",
+       "(2x+3)(2x-3)"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² - 8x + 16",
+      "opciones": [
+       "(x-4)²",
+       "(x-8)²",
+       "(x-16)²",
+       "(x+4)(x-4)"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: 9x² - 6x + 1",
+      "opciones": [
+       "(3x-1)²",
+       "(3x-1)(3x+1)",
+       "(9x-1)²",
+       "(3x+1)²"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 20
+     }
+    ]
+   },
+   {
+    "id": 5,
+    "titulo": "x² + bx + c",
+    "icono": "🏆",
+    "teoria": {
+     "definicion": "Se buscan dos números que multiplicados den 'c' y sumados den 'b'. Con ellos se arman dos binomios.",
+     "ejemplo": "x² + 5x + 6 = (x+2)(x+3)   →   2·3=6  y  2+3=5"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² + 5x + 6",
+      "opciones": [
+       "(x+2)(x+3)",
+       "(x+1)(x+6)",
+       "(x+6)(x-1)",
+       "(x+2)(x+4)"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² + 7x + 12",
+      "opciones": [
+       "(x+3)(x+4)",
+       "(x+2)(x+6)",
+       "(x+1)(x+12)",
+       "(x+4)(x-3)"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² - 5x + 6",
+      "opciones": [
+       "(x-2)(x-3)",
+       "(x+2)(x+3)",
+       "(x-1)(x-6)",
+       "(x-2)(x+3)"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² + x - 6",
+      "opciones": [
+       "(x+3)(x-2)",
+       "(x-3)(x+2)",
+       "(x+6)(x-1)",
+       "(x+1)(x-6)"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 25
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factoriza: x² - 2x - 15",
+      "opciones": [
+       "(x-5)(x+3)",
+       "(x+5)(x-3)",
+       "(x-15)(x+1)",
+       "(x-5)(x-3)"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 25
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "trigonometria",
+  "nombre": "Trigonometría",
+  "icono": "📐",
+  "color": "#4fc3f7",
+  "descripcion": "Razones trigonométricas, identidades y triángulos.",
+  "desbloqueado": false,
+  "requiere": "factorizacion",
+  "niveles": [
+   {
+    "id": 1,
+    "titulo": "Razones Trigonométricas",
+    "icono": "📐",
+    "teoria": {
+     "definicion": "En un triángulo rectángulo: sen θ = opuesto/hipotenusa, cos θ = adyacente/hipotenusa, tan θ = opuesto/adyacente (SOH-CAH-TOA).",
+     "ejemplo": "Si el cateto opuesto mide 3 y la hipotenusa 5, sen θ = 3/5"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "Cateto opuesto = 3, hipotenusa = 5. sen θ = ?",
+      "opciones": [
+       "3/5",
+       "4/5",
+       "3/4",
+       "5/3"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Cateto adyacente = 4, hipotenusa = 5. cos θ = ?",
+      "opciones": [
+       "4/5",
+       "3/5",
+       "4/3",
+       "5/4"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Opuesto = 3, adyacente = 4. tan θ = ?",
+      "opciones": [
+       "3/4",
+       "4/3",
+       "3/5",
+       "4/5"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Hipotenusa = 13, opuesto = 5 (adyacente = 12). cos θ = ?",
+      "opciones": [
+       "12/13",
+       "5/13",
+       "13/12",
+       "5/12"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Adyacente = 8, opuesto = 6. tan θ = ?",
+      "opciones": [
+       "3/4",
+       "4/3",
+       "6/10",
+       "8/6"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     }
+    ]
+   },
+   {
+    "id": 2,
+    "titulo": "Identidad Pitagórica",
+    "icono": "🔺",
+    "teoria": {
+     "definicion": "Para cualquier ángulo θ se cumple: sen²θ + cos²θ = 1.",
+     "ejemplo": "Si sen θ = 3/5, entonces cos θ = 4/5 (triángulo 3-4-5)"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "Si sen θ = 4/5 (θ agudo), cos θ = ?",
+      "opciones": [
+       "3/5",
+       "4/5",
+       "5/4",
+       "1/5"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Si cos θ = 5/13 (θ agudo), sen θ = ?",
+      "opciones": [
+       "12/13",
+       "5/13",
+       "13/12",
+       "1/13"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Simplifica: sen²θ + cos²θ",
+      "opciones": [
+       "1",
+       "0",
+       "2",
+       "sen θ cos θ"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Si sen θ = 1/2, entonces sen²θ = ?",
+      "opciones": [
+       "1/4",
+       "1/2",
+       "1",
+       "1/8"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Si sen θ = 0.6 (θ agudo), cos θ = ?",
+      "opciones": [
+       "0.8",
+       "0.6",
+       "1.0",
+       "0.4"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     }
+    ]
+   },
+   {
+    "id": 3,
+    "titulo": "Ángulos Notables",
+    "icono": "⭐",
+    "teoria": {
+     "definicion": "Los ángulos 30°, 45° y 60° tienen valores exactos de sen, cos y tan que conviene memorizar.",
+     "ejemplo": "sen(30°) = 1/2, cos(45°) = √2/2, tan(45°) = 1"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "sen(30°) = ?",
+      "opciones": [
+       "1/2",
+       "√2/2",
+       "√3/2",
+       "1"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "cos(60°) = ?",
+      "opciones": [
+       "1/2",
+       "√3/2",
+       "√2/2",
+       "0"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "tan(45°) = ?",
+      "opciones": [
+       "1",
+       "0",
+       "√3",
+       "√2"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "sen(60°) = ?",
+      "opciones": [
+       "√3/2",
+       "1/2",
+       "√2/2",
+       "1"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "cos(30°) = ?",
+      "opciones": [
+       "√3/2",
+       "1/2",
+       "√2/2",
+       "1"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     }
+    ]
+   },
+   {
+    "id": 4,
+    "titulo": "Ley de Senos y Cosenos",
+    "icono": "📏",
+    "teoria": {
+     "definicion": "Ley de senos: a/sen A = b/sen B = c/sen C.  Ley de cosenos: c² = a² + b² − 2ab·cos C.",
+     "ejemplo": "Si C = 90°, la ley de cosenos se reduce al Teorema de Pitágoras: c² = a² + b²"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "a=10, A=30°, B=90°. Por ley de senos, b = ?",
+      "opciones": [
+       "20",
+       "10",
+       "5",
+       "15"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "a=b=5, ángulo entre ellos C=60°. El lado c = ?",
+      "opciones": [
+       "5",
+       "25",
+       "10",
+       "7.07"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "a=7, b=7, C=60°. El lado c = ?",
+      "opciones": [
+       "7",
+       "14",
+       "3.5",
+       "49"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Si C=90°, la ley de cosenos se reduce a:",
+      "opciones": [
+       "a²+b² (Pitágoras)",
+       "a²−b²",
+       "2ab",
+       "(a+b)²"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "a=8, b=15, C=90°. El lado c = ?",
+      "opciones": [
+       "17",
+       "23",
+       "7",
+       "289"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 20
+     }
+    ]
+   },
+   {
+    "id": 5,
+    "titulo": "Ecuaciones Trigonométricas",
+    "icono": "🏆",
+    "teoria": {
+     "definicion": "Resolver una ecuación trigonométrica significa encontrar los ángulos θ que la satisfacen en un intervalo dado.",
+     "ejemplo": "sen θ = 1/2  →  la menor solución positiva es θ = 30°"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "sen θ = 1/2 (menor solución positiva)",
+      "opciones": [
+       "30°",
+       "45°",
+       "60°",
+       "150°"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "cos θ = 0 (menor solución positiva)",
+      "opciones": [
+       "90°",
+       "0°",
+       "180°",
+       "270°"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "tan θ = 1 (menor solución positiva)",
+      "opciones": [
+       "45°",
+       "135°",
+       "90°",
+       "0°"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "cos θ = 1 (menor solución no negativa)",
+      "opciones": [
+       "0°",
+       "360°",
+       "180°",
+       "90°"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 25
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "sen θ = 0 (solución positiva menor a 360°, distinta de 0°)",
+      "opciones": [
+       "180°",
+       "90°",
+       "270°",
+       "360°"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 25
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "ecuaciones-diferenciales",
+  "nombre": "Ecuaciones Diferenciales",
+  "icono": "📈",
+  "color": "#ff6b6b",
+  "descripcion": "Orden, grado y métodos de solución de ecuaciones diferenciales.",
+  "desbloqueado": false,
+  "requiere": "trigonometria",
+  "niveles": [
+   {
+    "id": 1,
+    "titulo": "Orden y Grado",
+    "icono": "🔢",
+    "teoria": {
+     "definicion": "El orden de una ED es el de su derivada más alta. El grado es la potencia a la que está elevada esa derivada (si es polinómica en las derivadas).",
+     "ejemplo": "y'' + 3y' − 5y = 0  →  orden 2, grado 1"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "Orden de: y''' + y² = x",
+      "opciones": [
+       "3",
+       "2",
+       "1",
+       "0"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Orden de: y' + y = eˣ",
+      "opciones": [
+       "1",
+       "2",
+       "3",
+       "0"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Grado de: (y'')³ + y' = x",
+      "opciones": [
+       "3",
+       "2",
+       "1",
+       "0"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Orden de: y'''' − 2y'' + y = 0",
+      "opciones": [
+       "4",
+       "2",
+       "1",
+       "3"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Grado de: y' + 5y = 0",
+      "opciones": [
+       "1",
+       "2",
+       "0",
+       "5"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     }
+    ]
+   },
+   {
+    "id": 2,
+    "titulo": "Variables Separables",
+    "icono": "➗",
+    "teoria": {
+     "definicion": "Si dy/dx = f(x)g(y), se separan las variables (todo lo de y con dy, todo lo de x con dx) y se integra ambos lados.",
+     "ejemplo": "dy/dx = x/y  →  y dy = x dx  →  y²/2 = x²/2 + C"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "dy/dx = x/y. Forma separada correcta:",
+      "opciones": [
+       "y dy = x dx",
+       "dy = x/y dx",
+       "y dx = x dy",
+       "dy/y = dx/x"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "dy/dx = y. Al separar e integrar se obtiene:",
+      "opciones": [
+       "ln|y| = x + C",
+       "y = x + C",
+       "ln|y| = x² + C",
+       "y² = x + C"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "La solución general de dy/dx = ky (k constante) es:",
+      "opciones": [
+       "y = Ceᵏˣ",
+       "y = kx + C",
+       "y = Cxᵏ",
+       "y = k·eᶜˣ"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "dy/dx = 2x. Al integrar se obtiene:",
+      "opciones": [
+       "y = x² + C",
+       "y = 2x² + C",
+       "y = x + C",
+       "y = x²/2 + C"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "dy/dx = −y/x. La solución es:",
+      "opciones": [
+       "xy = C",
+       "y = Cx",
+       "y = C/x²",
+       "x + y = C"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     }
+    ]
+   },
+   {
+    "id": 3,
+    "titulo": "Lineales de Primer Orden",
+    "icono": "📉",
+    "teoria": {
+     "definicion": "Para y' + P(x)y = Q(x), se usa el factor integrante μ(x) = e^(∫P dx) para resolver la ecuación.",
+     "ejemplo": "y' + y = 0  →  factor integrante μ(x) = eˣ"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "Para y' + 2y = 0, el factor integrante es:",
+      "opciones": [
+       "e²ˣ",
+       "e⁻²ˣ",
+       "2eˣ",
+       "eˣ/²"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "La solución general de y' + 2y = 0 es:",
+      "opciones": [
+       "y = Ce⁻²ˣ",
+       "y = Ce²ˣ",
+       "y = C − 2x",
+       "y = 2Cx"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "y' + 3y = 0, y(0) = 5. La solución particular es:",
+      "opciones": [
+       "y = 5e⁻³ˣ",
+       "y = 5e³ˣ",
+       "y = 3e⁻⁵ˣ",
+       "y = e⁻³ˣ + 5"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Factor integrante de y' + (1/x)y = 0, x>0:",
+      "opciones": [
+       "x",
+       "1/x",
+       "eˣ",
+       "ln x"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "La ecuación y' − y = 0 tiene solución general:",
+      "opciones": [
+       "y = Ceˣ",
+       "y = Ce⁻ˣ",
+       "y = C + x",
+       "y = Cx"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     }
+    ]
+   },
+   {
+    "id": 4,
+    "titulo": "Ecuaciones Homogéneas",
+    "icono": "🧮",
+    "teoria": {
+     "definicion": "Una ED es homogénea si se puede escribir como dy/dx = f(y/x). Se resuelve con la sustitución y = vx.",
+     "ejemplo": "dy/dx = (x+y)/x  →  con y = vx se reduce a variables separables"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "¿Qué sustitución se usa para resolver dy/dx = f(y/x)?",
+      "opciones": [
+       "y = vx",
+       "y = v + x",
+       "x = vy²",
+       "y = v/x"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "dy/dx = (x²+y²)/(xy) es homogénea porque:",
+      "opciones": [
+       "Todos sus términos tienen grado 2",
+       "No depende de y",
+       "Es lineal",
+       "Tiene coeficientes constantes"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Al sustituir y = vx, dy/dx se convierte en:",
+      "opciones": [
+       "v + x(dv/dx)",
+       "v",
+       "x(dv/dx)",
+       "v·x"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "¿Cuál de estas ecuaciones es homogénea?",
+      "opciones": [
+       "dy/dx = (x+y)/x",
+       "dy/dx = x + 5",
+       "dy/dx = y + x²",
+       "dy/dx = 3"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Tras sustituir y=vx, la ecuación en v y x resultante es:",
+      "opciones": [
+       "Separable",
+       "Lineal de segundo orden",
+       "Siempre exacta",
+       "Imposible de resolver"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 25
+     }
+    ]
+   },
+   {
+    "id": 5,
+    "titulo": "Ecuaciones Exactas",
+    "icono": "🏆",
+    "teoria": {
+     "definicion": "M dx + N dy = 0 es exacta si ∂M/∂y = ∂N/∂x. En ese caso existe F(x,y) tal que la solución es F(x,y) = C.",
+     "ejemplo": "(2xy)dx + (x²)dy = 0 es exacta porque ∂M/∂y = 2x = ∂N/∂x"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "M dx + N dy = 0 es exacta si:",
+      "opciones": [
+       "∂M/∂y = ∂N/∂x",
+       "∂M/∂x = ∂N/∂y",
+       "M = N",
+       "∂M/∂y = −∂N/∂x"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Para M = 2xy, ∂M/∂y = ?",
+      "opciones": [
+       "2x",
+       "2y",
+       "x²",
+       "2xy"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Para N = x², ∂N/∂x = ?",
+      "opciones": [
+       "2x",
+       "x²",
+       "2",
+       "0"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "¿(3x²+y)dx + (x+3y²)dy = 0 es exacta? (∂M/∂y=1=∂N/∂x)",
+      "opciones": [
+       "Sí, es exacta",
+       "No es exacta",
+       "Es lineal, no exacta",
+       "Es homogénea"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 25
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Si una ED es exacta, la solución general se expresa como:",
+      "opciones": [
+       "F(x,y) = C",
+       "y = Ceˣ",
+       "x = Cy",
+       "No tiene solución general"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 25
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "algebra-lineal",
+  "nombre": "Álgebra Lineal",
+  "icono": "📚",
+  "color": "#c77dff",
+  "descripcion": "Matrices, determinantes, sistemas lineales y vectores.",
+  "desbloqueado": false,
+  "requiere": "ecuaciones-diferenciales",
+  "niveles": [
+   {
+    "id": 1,
+    "titulo": "Operaciones con Matrices",
+    "icono": "🔲",
+    "teoria": {
+     "definicion": "Las matrices se suman/restan componente a componente, y se multiplican por un escalar multiplicando cada elemento.",
+     "ejemplo": "[[1,2],[3,4]] + [[5,6],[7,8]] = [[6,8],[10,12]]"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "[[1,2],[3,4]] + [[1,1],[1,1]] = ?",
+      "opciones": [
+       "[[2,3],[4,5]]",
+       "[[1,2],[3,4]]",
+       "[[0,1],[2,3]]",
+       "[[2,2],[4,4]]"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "2 · [[1,2],[3,4]] = ?",
+      "opciones": [
+       "[[2,4],[6,8]]",
+       "[[1,2],[3,4]]",
+       "[[2,2],[3,3]]",
+       "[[3,4],[5,6]]"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "[[2,0],[0,2]] + [[3,1],[1,3]] = ?",
+      "opciones": [
+       "[[5,1],[1,5]]",
+       "[[6,0],[0,6]]",
+       "[[5,0],[0,5]]",
+       "[[1,1],[1,1]]"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "−1 · [[1,−2],[3,−4]] = ?",
+      "opciones": [
+       "[[−1,2],[−3,4]]",
+       "[[1,−2],[3,−4]]",
+       "[[−1,−2],[−3,−4]]",
+       "[[1,2],[3,4]]"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "[[4,5],[6,7]] − [[1,2],[3,4]] = ?",
+      "opciones": [
+       "[[3,3],[3,3]]",
+       "[[5,7],[9,11]]",
+       "[[3,3],[3,4]]",
+       "[[4,3],[3,3]]"
+      ],
+      "correcta": 0,
+      "xp": 20,
+      "monedas": 10
+     }
+    ]
+   },
+   {
+    "id": 2,
+    "titulo": "Determinantes",
+    "icono": "🧭",
+    "teoria": {
+     "definicion": "Para una matriz 2×2: det[[a,b],[c,d]] = ad − bc.",
+     "ejemplo": "det[[2,3],[1,4]] = 2·4 − 3·1 = 5"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "det[[2,3],[1,4]] = ?",
+      "opciones": [
+       "5",
+       "11",
+       "-5",
+       "10"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "det[[1,2],[3,4]] = ?",
+      "opciones": [
+       "-2",
+       "2",
+       "10",
+       "-10"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "det[[5,0],[0,5]] = ?",
+      "opciones": [
+       "25",
+       "0",
+       "10",
+       "5"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "det[[3,1],[2,1]] = ?",
+      "opciones": [
+       "1",
+       "5",
+       "-1",
+       "3"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "det[[0,1],[1,0]] = ?",
+      "opciones": [
+       "-1",
+       "1",
+       "0",
+       "2"
+      ],
+      "correcta": 0,
+      "xp": 25,
+      "monedas": 15
+     }
+    ]
+   },
+   {
+    "id": 3,
+    "titulo": "Sistemas de Ecuaciones Lineales",
+    "icono": "⚖️",
+    "teoria": {
+     "definicion": "Un sistema 2×2 se puede resolver por sustitución o suma/resta de ecuaciones para eliminar una variable.",
+     "ejemplo": "x+y=5, x−y=1  →  sumando: 2x=6 → x=3, y=2"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "x+y=5, x−y=1. x = ?",
+      "opciones": [
+       "3",
+       "2",
+       "4",
+       "1"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "x+y=5, x−y=1. y = ?",
+      "opciones": [
+       "2",
+       "3",
+       "1",
+       "4"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "2x+y=8, x−y=1. x = ?",
+      "opciones": [
+       "3",
+       "2",
+       "4",
+       "5"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "2x+y=8, x−y=1. y = ?",
+      "opciones": [
+       "2",
+       "3",
+       "1",
+       "4"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "x+2y=4, 3x−2y=4. x = ?",
+      "opciones": [
+       "2",
+       "1",
+       "4",
+       "0"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 25
+     }
+    ]
+   },
+   {
+    "id": 4,
+    "titulo": "Matriz Inversa",
+    "icono": "🔄",
+    "teoria": {
+     "definicion": "Para A=[[a,b],[c,d]], A⁻¹ = (1/det A)·[[d,−b],[−c,a]]. Solo existe si det(A) ≠ 0.",
+     "ejemplo": "A=[[2,0],[0,2]]  →  det=4  →  A⁻¹=[[0.5,0],[0,0.5]]"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "Para A=[[1,2],[3,4]], det(A) = −2. ¿A tiene inversa?",
+      "opciones": [
+       "Sí, porque det≠0",
+       "No, porque det=0",
+       "Sí, porque det=0",
+       "No se puede saber"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Para A=[[2,0],[0,2]], A⁻¹ = ?",
+      "opciones": [
+       "[[0.5,0],[0,0.5]]",
+       "[[2,0],[0,2]]",
+       "[[-2,0],[0,-2]]",
+       "[[0,0.5],[0.5,0]]"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Si det(A)=0, entonces la matriz A:",
+      "opciones": [
+       "No tiene inversa",
+       "Siempre tiene inversa",
+       "Es la identidad",
+       "Es diagonal"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "Para la identidad A=[[1,0],[0,1]], A⁻¹ = ?",
+      "opciones": [
+       "[[1,0],[0,1]]",
+       "[[0,1],[1,0]]",
+       "[[0,0],[0,0]]",
+       "[[-1,0],[0,-1]]"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "det[[3,0],[0,1/3]] = ?",
+      "opciones": [
+       "1",
+       "3",
+       "0",
+       "1/3"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 25
+     }
+    ]
+   },
+   {
+    "id": 5,
+    "titulo": "Vectores: Producto Punto y Magnitud",
+    "icono": "🏆",
+    "teoria": {
+     "definicion": "El producto punto: u·v = u₁v₁ + u₂v₂. La magnitud: |u| = √(u₁² + u₂²).",
+     "ejemplo": "u = (3,4)  →  |u| = √(9+16) = 5"
+    },
+    "preguntas": [
+     {
+      "tipo": "opcion",
+      "enunciado": "|u| para u = (3,4) = ?",
+      "opciones": [
+       "5",
+       "7",
+       "25",
+       "12"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "u·v para u=(1,2), v=(3,4) = ?",
+      "opciones": [
+       "11",
+       "7",
+       "10",
+       "14"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "|u| para u = (6,8) = ?",
+      "opciones": [
+       "10",
+       "14",
+       "48",
+       "100"
+      ],
+      "correcta": 0,
+      "xp": 30,
+      "monedas": 20
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "u·v para u=(2,0), v=(0,3) = ?",
+      "opciones": [
+       "0",
+       "6",
+       "2",
+       "3"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 25
+     },
+     {
+      "tipo": "opcion",
+      "enunciado": "|u| para u = (0,5) = ?",
+      "opciones": [
+       "5",
+       "0",
+       "25",
+       "10"
+      ],
+      "correcta": 0,
+      "xp": 35,
+      "monedas": 25
+     }
+    ]
+   }
+  ]
+ }
+]
