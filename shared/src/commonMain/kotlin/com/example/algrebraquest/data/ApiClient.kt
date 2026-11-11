@@ -46,7 +46,7 @@ class ApiClient(private val baseUrl: () -> String) {
         } catch (e: Exception) {
             throw ApiFailure(
                 0,
-                "No se pudo conectar con el servidor (${baseUrl().trim()}). Comprueba que el backend Ktor esté encendido en el puerto 8080 y la URL sea correcta."
+                "No se pudo conectar con el servidor (${baseUrl().trim()}). Comprueba que el backend Ktor esté encendido en el puerto 8080 y la URL sea correcta. Detalle: ${e::class.simpleName}: ${e.message}"
             )
         }
         if (!response.status.isSuccess()) {

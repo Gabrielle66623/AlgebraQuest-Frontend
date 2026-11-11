@@ -146,7 +146,7 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            "PORTAL DE ACCESO · MULTI-ROL",
+                            "PORTAL DE ACCESO",
                             color = Aq.Mint,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
@@ -210,7 +210,7 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
             // ---------- Selector de Rol (Alumno / Supervisor / Administrador) ----------
             AqCard(Modifier.fillMaxWidth(), accent = Aq.Gold) {
                 Text(
-                    "1. Selecciona tu perfil de acceso",
+                    "Perfil de acceso",
                     color = Aq.GoldSoft,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
@@ -253,7 +253,7 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
                             )
                             if (roleCred != null) {
                                 Text(
-                                    "🫆😊 Activo",
+                                    "Biometría activa",
                                     color = Aq.Green,
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight.SemiBold,
@@ -290,7 +290,7 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
                                 .padding(horizontal = 10.dp, vertical = 5.dp),
                         ) {
                             Text(
-                                "👤 $demoUser",
+                                demoUser,
                                 color = if (isSelectedUser) Aq.Gold else Aq.Text,
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.SemiBold,
@@ -308,7 +308,7 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        "2. Credenciales (${selectedRole.title})",
+                        "Credenciales · ${selectedRole.title}",
                         color = Aq.Gold,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
@@ -332,10 +332,12 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     trailing = {
                         Text(
-                            if (showPassword) "🙈" else "👁",
+                            if (showPassword) "Ocultar" else "Mostrar",
                             modifier = Modifier
                                 .clickable { showPassword = !showPassword }
-                                .padding(12.dp),
+                                .padding(horizontal = 12.dp, vertical = 14.dp),
+                            color = Aq.GoldSoft,
+                            fontSize = 12.sp,
                         )
                     },
                 )
@@ -363,7 +365,7 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
                 ) {
                     Column(Modifier.weight(1f)) {
                         Text(
-                            "3. Acceso con Sensor Biométrico",
+                            "Acceso biométrico",
                             color = Aq.Mint,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
@@ -382,7 +384,7 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
                             .border(1.dp, Aq.Mint, CircleShape),
                         contentAlignment = Alignment.Center,
                     ) {
-                        Text("🫆", fontSize = 20.sp)
+                        Text(selectedRole.badge, fontSize = 18.sp)
                     }
                 }
 
@@ -449,7 +451,7 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
                     AqButton(
-                        text = "🫆 Huella dactilar",
+                        text = "Huella dactilar",
                         onClick = {
                             vm.biometricLogin(
                                 mode = BiometricMode.HUELLA,
@@ -462,7 +464,7 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
                         enabled = !state.loading && sensorAvailable,
                     )
                     AqButton(
-                        text = "😊 Rostro (Facial)",
+                        text = "Reconocimiento facial",
                         onClick = {
                             vm.biometricLogin(
                                 mode = BiometricMode.ROSTRO,
@@ -478,13 +480,13 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
 
                 val statusNote = when {
                     !sensorAvailable && state.biometricStatus == BiometricStatus.NOT_ENROLLED ->
-                        "⚠ Registra al menos una huella o rostro en Ajustes de Android para habilitar el lector."
+                        "Registra al menos una huella o rostro en Ajustes de Android para habilitar el lector."
                     !sensorAvailable ->
-                        "⚠ El sensor biométrico no está disponible en este dispositivo."
+                        "El sensor biométrico no está disponible en este dispositivo."
                     roleBiometricCred != null ->
-                        "✓ Sensor listo para entrar como ${roleBiometricCred.displayName} (${roleBiometricCred.role})."
+                        "Sensor listo para entrar como ${roleBiometricCred.displayName} (${roleBiometricCred.role})."
                     else ->
-                        "💡 Inicia sesión una vez con contraseña en el rol elegido para vincular tu huella y rostro."
+                        "Inicia sesión una vez con contraseña en el rol elegido para vincular tu huella y rostro."
                 }
                 Text(statusNote, color = Aq.Muted, fontSize = 12.sp)
             }

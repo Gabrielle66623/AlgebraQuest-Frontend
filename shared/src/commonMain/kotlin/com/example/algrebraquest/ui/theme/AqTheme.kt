@@ -117,19 +117,19 @@ fun AqButton(
         else -> Color.White
     }
     val active = enabled && !loading
-    val border = if (style == AqButtonStyle.Ghost) BorderStroke(1.5.dp, Aq.Gold.copy(alpha = 0.7f)) else null
+    val border = if (style == AqButtonStyle.Ghost) BorderStroke(1.dp, Aq.Gold.copy(alpha = 0.5f)) else null
     Box(
         modifier
-            .clip(RoundedCornerShape(50))
-            .background(container.copy(alpha = if (active) 1f else 0.45f))
-            .let { if (border != null) it.border(border, RoundedCornerShape(50)) else it }
+            .clip(RoundedCornerShape(14.dp))
+            .background(container.copy(alpha = if (active) 1f else 0.4f))
+            .let { if (border != null) it.border(border, RoundedCornerShape(14.dp)) else it }
             .clickable(enabled = active, onClick = onClick)
-            .padding(horizontal = 24.dp, vertical = 14.dp),
+            .padding(horizontal = 20.dp, vertical = 14.dp),
         contentAlignment = Alignment.Center,
     ) {
         if (loading) CircularProgressIndicator(Modifier.size(20.dp), color = content, strokeWidth = 2.dp)
         else Text(text, color = if (style == AqButtonStyle.Ghost) Aq.GoldSoft else content, fontWeight = FontWeight.SemiBold,
-            fontSize = 16.sp, textAlign = TextAlign.Center)
+            fontSize = 15.sp, letterSpacing = 0.3.sp, textAlign = TextAlign.Center)
     }
 }
 
@@ -137,16 +137,16 @@ fun AqButton(
 fun AqCard(
     modifier: Modifier = Modifier,
     accent: Color? = null,
-    padding: PaddingValues = PaddingValues(16.dp),
+    padding: PaddingValues = PaddingValues(18.dp),
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Column(
         modifier
-            .clip(RoundedCornerShape(16.dp))
-            .background(Aq.Panel)
-            .border(1.dp, accent?.copy(alpha = 0.6f) ?: Aq.Border, RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(20.dp))
+            .background(Brush.verticalGradient(listOf(Aq.Panel2.copy(alpha = 0.85f), Aq.Panel)))
+            .border(1.dp, accent?.copy(alpha = 0.35f) ?: Aq.Border, RoundedCornerShape(20.dp))
             .padding(padding),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
         content = content,
     )
 }
@@ -181,8 +181,19 @@ fun ProgressBar(fraction: Float, modifier: Modifier = Modifier, color: Color = A
 
 @Composable
 fun MessageBanner(error: String?, notice: String? = null, modifier: Modifier = Modifier) {
-    if (error != null) Text("⚠ $error", color = Aq.Red, fontSize = 14.sp, modifier = modifier.fillMaxWidth())
-    else if (notice != null) Text("✓ $notice", color = Aq.Green, fontSize = 14.sp, modifier = modifier.fillMaxWidth())
+    val text = error ?: notice ?: return
+    val tone = if (error != null) Aq.Red else Aq.Green
+    Text(
+        text,
+        color = tone,
+        fontSize = 13.sp,
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(tone.copy(alpha = 0.12f))
+            .border(1.dp, tone.copy(alpha = 0.4f), RoundedCornerShape(12.dp))
+            .padding(horizontal = 12.dp, vertical = 10.dp),
+    )
 }
 
 @Composable
@@ -210,7 +221,7 @@ fun AqTextField(
     OutlinedTextField(
         value = value, onValueChange = onValueChange, label = { Text(label) }, singleLine = true, enabled = enabled,
         visualTransformation = visualTransformation, keyboardOptions = keyboardOptions, trailingIcon = trailing,
-        modifier = modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp),
+        modifier = modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp),
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Aq.Gold, unfocusedBorderColor = Aq.Border,
             focusedLabelColor = Aq.Gold, unfocusedLabelColor = Aq.Muted,
