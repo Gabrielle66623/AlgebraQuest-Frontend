@@ -277,6 +277,21 @@ private fun AqHtmlHeader(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
+                    "Alma Daniela \n Bienvenidos a",
+                    style = TextStyle(
+                        color = TitlePrimary,
+                        fontSize = 26.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        letterSpacing = (-0.5).sp,
+                        shadow = Shadow(
+                            color = Color.Black.copy(alpha = 0.48f),
+                            offset = Offset(0f, 3f),
+                            blurRadius = 12f,
+                        ),
+                    ),
+                )
+                Spacer(Modifier.height(2.dp))
+                Text(
                     "Bienvenidos a",
                     style = TextStyle(
                         color = TitlePrimary,
@@ -296,6 +311,21 @@ private fun AqHtmlHeader(
                     style = TextStyle(
                         color = TitleAccent,
                         fontSize = 32.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = (-0.8).sp,
+                        shadow = Shadow(
+                            color = Color.Black.copy(alpha = 0.55f),
+                            offset = Offset(0f, 4f),
+                            blurRadius = 16f,
+                        ),
+                    ),
+                )
+                Spacer(Modifier.height(1.dp))
+                Text(
+                    "Eduardo Baruch",
+                    style = TextStyle(
+                        color = TitleAccent,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Black,
                         letterSpacing = (-0.8).sp,
                         shadow = Shadow(
