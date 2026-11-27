@@ -96,7 +96,7 @@ private val USERNAME_REGEX = Regex("^[A-Za-z0-9_.-]{3,20}$")
 private const val MIN_PASSWORD = 8
 
 private fun usernameError(v: String): String? = when {
-    v.isBlank() -> "El usuario es obligatorio"
+    v.isBlank() -> "El usuario es obligatorio PRUEBA123"
     !USERNAME_REGEX.matches(v.trim()) -> "3 a 20 caracteres: letras, números, punto, guion o guion bajo"
     else -> null
 }
