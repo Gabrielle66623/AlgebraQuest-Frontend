@@ -1,7 +1,26 @@
 package com.example.algrebraquest.ui.screens
 
 import algrebraquest.shared.generated.resources.Res
-import algrebraquest.shared.generated.resources.personaje
+import algrebraquest.shared.generated.resources.blogger
+import algrebraquest.shared.generated.resources.fondo1
+import algrebraquest.shared.generated.resources.graduado
+import algrebraquest.shared.generated.resources.logo1
+import algrebraquest.shared.generated.resources.profesor
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,8 +30,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
@@ -31,15 +54,27 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.CompositingStrategy
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.algrebraquest.data.Role
@@ -48,20 +83,18 @@ import com.example.algrebraquest.platform.BiometricStatus
 import com.example.algrebraquest.ui.AppViewModel
 import com.example.algrebraquest.ui.UiState
 import com.example.algrebraquest.ui.theme.Aq
-import com.example.algrebraquest.ui.theme.AqBackground
 import com.example.algrebraquest.ui.theme.AqButton
 import com.example.algrebraquest.ui.theme.AqButtonStyle
-import com.example.algrebraquest.ui.theme.AqCard
 import com.example.algrebraquest.ui.theme.AqTextField
 import com.example.algrebraquest.ui.theme.MessageBanner
 import org.jetbrains.compose.resources.painterResource
 
 private enum class AuthTab(val title: String) { LOGIN("Iniciar sesión"), REGISTER("Crear cuenta") }
+private enum class LoginView { WELCOME, ROLES, LOGIN }
 
 private val USERNAME_REGEX = Regex("^[A-Za-z0-9_.-]{3,20}$")
 private const val MIN_PASSWORD = 8
 
-/** Validaciones en tiempo real. Devuelven null si el campo es válido. */
 private fun usernameError(v: String): String? = when {
     v.isBlank() -> "El usuario es obligatorio"
     !USERNAME_REGEX.matches(v.trim()) -> "3 a 20 caracteres: letras, números, punto, guion o guion bajo"
@@ -83,10 +116,46 @@ private fun confirmError(password: String, confirm: String): String? = when {
     else -> null
 }
 
-/**
- * R-01 · Acceso: inicio de sesión (todos los roles, la redirección por rol la decide el servidor)
- * y registro de nuevos ALUMNOS. Responsivo: dos columnas en pantallas anchas, una columna en móviles.
- */
+// Paleta exacta del HTML (algebraquest_solo_interfaz.html)
+private val BodyBg = Brush.radialGradient(
+    colors = listOf(Color(0xFF2B0714), Color(0xFF14040A), Color(0xFF0A0205)),
+)
+private val BarBg = Brush.linearGradient(
+    colors = listOf(Color(0xFF21030C), Color(0xFF4D081F), Color(0xFF750E2F)),
+)
+private val BarBorder = Color(0x94EBBF66) // rgba(235, 191, 102, 0.58)
+private val TitlePrimary = Color(0xFFFFF8EE)
+private val TitleAccent = Color(0xFFF6CF7D)
+private val UptColor = Color(0xFFFFF4DE)
+private val BullBg = Brush.linearGradient(
+    colors = listOf(Color(0xFFFFF5E4), Color(0xFFF5CA94), Color(0xFFDF8B7B)),
+)
+private val ShieldBg = Brush.linearGradient(
+    colors = listOf(Color(0xFFA3133D), Color(0xFF730A28), Color(0xFF440416)),
+)
+private val PatternFilter = ColorFilter.colorMatrix(
+    ColorMatrix(
+        floatArrayOf(
+            1.02f, 0f, 0f, 0f, -43.52f,
+            0f, 1.02f, 0f, 0f, -43.52f,
+            0f, 0f, 1.02f, 0f, -43.52f,
+            0f, 0f, 0f, 1f, 0f,
+        ),
+    ),
+)
+private val RoleBg = Brush.linearGradient(
+    colors = listOf(Color(0xFF5A0821), Color(0xFF8C1135), Color(0xFF470518)),
+)
+private val RoleCardBg = Color(0x1FFFF5E4) // rgba(255, 245, 228, 0.12)
+private val RoleCardBorder = Color(0x61F6CF7D) // rgba(246, 207, 125, 0.38)
+private val RoleIconBg = Brush.linearGradient(
+    colors = listOf(Color(0xFFFFF7EA), Color(0xFFF7D9AF)),
+)
+private val RoleLabel = Color(0xFFFFF7EB)
+private val LoginOverlayBg = Brush.verticalGradient(
+    colors = listOf(Color(0xFF1A030B), Color(0xFF3E0718), Color(0xFF160309)),
+)
+
 @Composable
 fun LoginScreen(state: UiState, vm: AppViewModel) {
     var view by remember { mutableStateOf(LoginView.WELCOME) }
@@ -101,167 +170,398 @@ fun LoginScreen(state: UiState, vm: AppViewModel) {
     Box(
         Modifier
             .fillMaxSize()
-            .background(Brush.radialGradient(listOf(Color(0xFF4D081F), Color(0xFF14040A), Color(0xFF0A0205)))),
+            .background(BodyBg),
     ) {
         BoxWithConstraints(Modifier.fillMaxSize().safeContentPadding()) {
-            val wide = maxWidth >= 840.dp
+            val wide = maxWidth >= 600.dp
+            val frameHeight = if (wide) maxHeight.coerceAtMost(820.dp) else maxHeight
+            val shape = if (wide) RoundedCornerShape(26.dp) else RoundedCornerShape(0.dp)
+
             Box(
                 Modifier
                     .fillMaxSize()
-                    .padding(if (wide) 32.dp else 12.dp),
+                    .padding(horizontal = if (wide) 24.dp else 0.dp, vertical = if (wide) 16.dp else 0.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                when (view) {
-                    LoginView.WELCOME -> WelcomeScreen(
-                        onContinue = { view = LoginView.ROLES },
-                        modifier = Modifier.widthIn(max = 520.dp),
-                    )
-                    LoginView.ROLES -> RoleSelectionScreen(
-                        onBack = { view = LoginView.WELCOME },
-                        onRoleSelected = { role ->
-                            selectedRole = role
-                            tab = AuthTab.LOGIN
-                            vm.clearMessages()
-                            view = LoginView.LOGIN
+                val panelModifier = Modifier
+                    .then(if (wide) Modifier.widthIn(max = 410.dp).heightIn(max = frameHeight) else Modifier)
+                    .fillMaxSize()
+                    .clip(shape)
+                    .then(
+                        if (wide) {
+                            Modifier.border(1.dp, TitleAccent.copy(alpha = 0.30f), shape)
+                        } else {
+                            Modifier
                         },
-                        modifier = Modifier.widthIn(max = 520.dp),
                     )
-                    LoginView.LOGIN -> WineLoginScreen(
-                        state = state,
-                        vm = vm,
-                        role = selectedRole,
-                        tab = tab,
-                        onTab = { tab = it; vm.clearMessages() },
-                        onBack = { view = LoginView.ROLES },
-                        modifier = Modifier.widthIn(max = 520.dp),
-                    )
+
+                AnimatedContent(
+                    targetState = view,
+                    modifier = panelModifier,
+                    transitionSpec = {
+                        val duration = 280
+                        if (targetState == LoginView.LOGIN) {
+                            (fadeIn(tween(duration)) + slideInVertically(tween(duration)) { it / 14 }) togetherWith
+                                    (fadeOut(tween(duration)) + slideOutVertically(tween(duration)) { -it / 14 })
+                        } else {
+                            (fadeIn(tween(duration)) + slideInHorizontally(tween(duration)) { it / 18 }) togetherWith
+                                    (fadeOut(tween(duration)) + slideOutHorizontally(tween(duration)) { -it / 18 })
+                        }
+                    },
+                    label = "login-screen-transition",
+                ) { targetView ->
+                    when (targetView) {
+                        LoginView.WELCOME -> WelcomeScreen(
+                            onContinue = { view = LoginView.ROLES },
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                        LoginView.ROLES -> RoleSelectionScreen(
+                            onBack = { view = LoginView.WELCOME },
+                            onRoleSelected = { role ->
+                                selectedRole = role
+                                tab = AuthTab.LOGIN
+                                vm.clearMessages()
+                                view = LoginView.LOGIN
+                            },
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                        LoginView.LOGIN -> WineLoginScreen(
+                            state = state,
+                            vm = vm,
+                            role = selectedRole,
+                            tab = tab,
+                            onTab = { tab = it; vm.clearMessages() },
+                            onBack = { view = LoginView.ROLES },
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                    }
                 }
             }
         }
     }
 }
 
-private enum class LoginView { WELCOME, ROLES, LOGIN }
-
-private val WineHeader = Brush.verticalGradient(listOf(Color(0xFF4D081F), Color(0xFF21030C)))
-private val WineCard = Brush.verticalGradient(listOf(Color(0xFF8C1135), Color(0xFF470518)))
-
 @Composable
-private fun WelcomeScreen(onContinue: () -> Unit, modifier: Modifier) {
-    Column(
-        modifier
-            .clip(RoundedCornerShape(26.dp))
-            .background(Color(0xFF24040E))
-            .border(1.dp, Color(0xFFB58A52).copy(alpha = 0.42f), RoundedCornerShape(26.dp))
-            .clickable(onClick = onContinue),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Box(
-            Modifier.fillMaxWidth().background(WineHeader).padding(vertical = 18.dp),
-            contentAlignment = Alignment.Center,
-        ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Bienvenidos a", color = Color(0xFFFFF8EE), fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text("AlgebraQuest", color = Color(0xFFF6CF7D), fontSize = 28.sp, fontWeight = FontWeight.ExtraBold)
-            }
-        }
+private fun AqHtmlHeader(
+    backText: String? = null,
+    onBack: (() -> Unit)? = null,
+) {
+    Column(Modifier.fillMaxWidth()) {
         Box(
             Modifier
                 .fillMaxWidth()
-                .padding(vertical = 24.dp, horizontal = 18.dp),
-            contentAlignment = Alignment.Center,
+                .background(BarBg)
+                .padding(top = 24.dp, bottom = 18.dp, start = 18.dp, end = 18.dp),
         ) {
-            Box(
-                Modifier
-                    .clip(RoundedCornerShape(24.dp))
-                    .border(2.dp, Color(0xFFF6CF7D).copy(alpha = 0.45f), RoundedCornerShape(24.dp)),
+            if (backText != null && onBack != null) {
+                Box(
+                    Modifier
+                        .align(Alignment.TopStart)
+                        .clip(RoundedCornerShape(50))
+                        .background(Color(0x7A0F0207))
+                        .border(1.dp, TitleAccent.copy(alpha = 0.35f), RoundedCornerShape(50))
+                        .clickable(onClick = onBack)
+                        .padding(horizontal = 10.dp, vertical = 6.dp),
+                ) {
+                    Text(
+                        backText,
+                        color = UptColor,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+            }
+
+            Column(
+                Modifier.align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Image(
-                    painterResource(Res.drawable.personaje),
-                    contentDescription = "Personaje de AlgebraQuest",
-                    modifier = Modifier.size(250.dp),
-                    contentScale = ContentScale.Crop,
+                Text(
+                    "Bienvenidos a",
+                    style = TextStyle(
+                        color = TitlePrimary,
+                        fontSize = 26.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        letterSpacing = (-0.5).sp,
+                        shadow = Shadow(
+                            color = Color.Black.copy(alpha = 0.48f),
+                            offset = Offset(0f, 3f),
+                            blurRadius = 12f,
+                        ),
+                    ),
+                )
+                Spacer(Modifier.height(2.dp))
+                Text(
+                    "AlgebraQuest",
+                    style = TextStyle(
+                        color = TitleAccent,
+                        fontSize = 32.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = (-0.8).sp,
+                        shadow = Shadow(
+                            color = Color.Black.copy(alpha = 0.55f),
+                            offset = Offset(0f, 4f),
+                            blurRadius = 16f,
+                        ),
+                    ),
                 )
             }
         }
-        Text(
-            "UPT",
-            color = Color(0xFFFFF4DE),
-            fontSize = 22.sp,
-            fontWeight = FontWeight.ExtraBold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFF21030C))
-                .padding(vertical = 12.dp),
-            textAlign = TextAlign.Center,
-        )
+        // Borde inferior dorado de 2px (.aq-header border-bottom)
+        Box(Modifier.fillMaxWidth().height(2.dp).background(BarBorder))
     }
 }
 
 @Composable
-private fun RoleSelectionScreen(onBack: () -> Unit, onRoleSelected: (Role) -> Unit, modifier: Modifier) {
+private fun WelcomeScreen(onContinue: () -> Unit, modifier: Modifier) {
+    val patternPainter = painterResource(Res.drawable.fondo1)
+    val transition = rememberInfiniteTransition(label = "math-pattern-drift")
+    val patternOffset by transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 215f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 28_000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart,
+        ),
+        label = "math-pattern-offset",
+    )
+
     Column(
-        modifier
-            .clip(RoundedCornerShape(26.dp))
-            .background(WineCard)
-            .border(1.dp, Color(0xFFB58A52).copy(alpha = 0.42f), RoundedCornerShape(26.dp)),
+        modifier.background(Color(0xFF24040E)),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        AqHtmlHeader()
+
+        // Escenario central (.aq-artwork)
         Box(
-            Modifier.fillMaxWidth().background(WineHeader).padding(14.dp),
+            Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .background(BullBg)
+                .clipToBounds()
+                .clickable(onClick = onContinue),
+            contentAlignment = Alignment.Center,
         ) {
+            Canvas(Modifier.fillMaxSize().clipToBounds()) {
+                clipRect {
+                    val tileSize = 215.dp.toPx()
+                    val offset = patternOffset.dp.toPx()
+                    var top = -offset
+                    while (top < size.height) {
+                        var left = -offset
+                        while (left < size.width) {
+                            translate(left = left, top = top) {
+                                with(patternPainter) {
+                                    draw(
+                                        size = Size(tileSize, tileSize),
+                                        alpha = 0.96f,
+                                        colorFilter = PatternFilter,
+                                    )
+                                }
+                            }
+                            left += tileSize
+                        }
+                        top += tileSize
+                    }
+                }
+            }
+
+            // Brillo radial sutil (.bull-vignette)
+            Box(
+                Modifier.fillMaxSize().drawWithCache {
+                    val vignette = Brush.radialGradient(
+                        colors = listOf(
+                            Color.White.copy(alpha = 0.22f),
+                            Color.Transparent,
+                            Color(0x242D0512),
+                        ),
+                        center = Offset(size.width * 0.58f, size.height * 0.52f),
+                        radius = size.maxDimension * 0.75f,
+                    )
+                    onDrawBehind {
+                        drawRect(vignette)
+                    }
+                },
+            )
+
+            // Escudo vino con la máscara del toro UPT (.wine-shield)
             Box(
                 Modifier
-                    .align(Alignment.CenterStart)
-                    .clip(RoundedCornerShape(50))
-                    .background(Color(0xFF24040E).copy(alpha = 0.55f))
-                    .clickable(onClick = onBack)
-                    .padding(horizontal = 12.dp, vertical = 7.dp),
-            ) { Text("← Inicio", color = Color(0xFFF6CF7D), fontSize = 12.sp, fontWeight = FontWeight.Bold) }
-            Column(Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Bienvenidos a", color = Color(0xFFFFF8EE), fontSize = 13.sp, fontWeight = FontWeight.Bold)
-                Text("AlgebraQuest", color = Color(0xFFF6CF7D), fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
+                    .fillMaxSize()
+                    .graphicsLayer {
+                        compositingStrategy = CompositingStrategy.Offscreen
+                    }
+                    .drawWithCache {
+                        val glow = Brush.radialGradient(
+                            colors = listOf(
+                                Color(0x4DFF5682),
+                                Color.Transparent,
+                            ),
+                            center = Offset(size.width * 0.22f, size.height * 0.24f),
+                            radius = size.maxDimension * 0.58f,
+                        )
+                        onDrawBehind {
+                            drawRect(ShieldBg)
+                            drawRect(glow)
+                        }
+                    },
+            ) {
+                Image(
+                    painterResource(Res.drawable.logo1),
+                    contentDescription = "Silueta del toro de AlgebraQuest",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer { blendMode = BlendMode.DstIn },
+                    contentScale = ContentScale.FillBounds,
+                )
             }
         }
 
-        Column(
-            Modifier.fillMaxWidth().padding(18.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+        // Barra inferior (.aq-footer)
+        Column(Modifier.fillMaxWidth()) {
+            Box(Modifier.fillMaxWidth().height(2.dp).background(BarBorder))
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .background(BarBg)
+                    .padding(top = 18.dp, bottom = 22.dp, start = 18.dp, end = 18.dp),
+                contentAlignment = Alignment.Center,
+
+            ) {
+                Text(
+                    text = "KEVIN GABRIEL\nUPT",
+                    style = TextStyle(
+                        color = UptColor,
+                        fontSize = 36.sp,
+                        lineHeight = 44.sp, // Controla el espacio entre las dos líneas
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = 5.sp,
+                        shadow = Shadow(
+                            color = Color.Black.copy(alpha = 0.52f),
+                            offset = Offset(0f, 3f),
+                            blurRadius = 14f,
+                        ),
+                    ),
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun RoleSelectionScreen(
+    onBack: () -> Unit,
+    onRoleSelected: (Role) -> Unit,
+    modifier: Modifier,
+) {
+    Column(modifier.background(RoleBg)) {
+        AqHtmlHeader(backText = "← Inicio", onBack = onBack)
+
+        BoxWithConstraints(
+            Modifier
+                .fillMaxWidth()
+                .weight(1f),
         ) {
-            Text("Selecciona tu rol", color = Color(0xFFFFF7EB), fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
-            listOf(Role.ALUMNO, Role.SUPERVISOR, Role.ADMINISTRADOR).forEach { role ->
-                Row(
+            val compactHeight = maxHeight < 420.dp
+            RoleOptions(
+                modifier = if (compactHeight) {
+                    Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                        .padding(horizontal = 22.dp, vertical = 16.dp)
+                } else {
                     Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(18.dp))
-                        .background(Color(0xFFFFF5E4).copy(alpha = 0.12f))
-                        .border(1.dp, Color(0xFFF6CF7D).copy(alpha = 0.38f), RoundedCornerShape(18.dp))
-                        .clickable { onRoleSelected(role) }
-                        .padding(12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        .height(maxHeight)
+                        .padding(horizontal = 22.dp, vertical = 16.dp)
+                },
+                onRoleSelected = onRoleSelected,
+                spread = !compactHeight,
+            )
+        }
+    }
+}
+
+@Composable
+private fun RoleOptions(
+    modifier: Modifier,
+    onRoleSelected: (Role) -> Unit,
+    spread: Boolean,
+) {
+    Column(
+        modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        Text(
+            "Selecciona tu rol",
+            style = TextStyle(
+                color = TitleAccent,
+                fontSize = 19.sp,
+                fontWeight = FontWeight.ExtraBold,
+                shadow = Shadow(
+                    color = Color.Black.copy(alpha = 0.42f),
+                    offset = Offset(0f, 2f),
+                    blurRadius = 10f,
+                ),
+            ),
+            modifier = Modifier.padding(bottom = 4.dp),
+        )
+
+        listOf(Role.ALUMNO, Role.SUPERVISOR, Role.ADMINISTRADOR).forEach { role ->
+            val roleIllustration = when (role) {
+                Role.ALUMNO -> Res.drawable.graduado
+                Role.SUPERVISOR -> Res.drawable.profesor
+                Role.ADMINISTRADOR -> Res.drawable.blogger
+            }
+            val roleLabelText = when (role) {
+                Role.ALUMNO -> "Alumno"
+                Role.SUPERVISOR -> "Profesor"
+                Role.ADMINISTRADOR -> "Administrador"
+            }
+            val cardHeight = if (spread) Modifier.weight(1f) else Modifier
+
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .then(cardHeight)
+                    .clip(RoundedCornerShape(20.dp))
+                    .background(RoleCardBg)
+                    .border(1.5.dp, RoleCardBorder, RoundedCornerShape(20.dp))
+                    .clickable { onRoleSelected(role) }
+                    .padding(horizontal = 14.dp, vertical = 10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterVertically),
+            ) {
+                Box(
+                    Modifier
+                        .size(82.dp)
+                        .clip(RoundedCornerShape(22.dp))
+                        .background(RoleIconBg)
+                        .padding(9.dp),
+                    contentAlignment = Alignment.Center,
                 ) {
-                    Box(
-                        Modifier
-                            .size(58.dp)
-                            .clip(RoundedCornerShape(14.dp))
-                            .background(Color(0xFFFFF7EA)),
-                        contentAlignment = Alignment.Center,
-                    ) { Text(role.badge, fontSize = 28.sp) }
-                    Column(Modifier.weight(1f)) {
-                        Text(role.title, color = Color(0xFFFFF7EB), fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
-                        Text(
-                            when (role) {
-                                Role.ALUMNO -> "Juega y aprende Álgebra"
-                                Role.SUPERVISOR -> "Supervisa el progreso"
-                                Role.ADMINISTRADOR -> "Administra la plataforma"
-                            },
-                            color = Color(0xFFF6CF7D),
-                            fontSize = 11.sp,
-                        )
-                    }
-                    Text("›", color = Color(0xFFF6CF7D), fontSize = 28.sp, fontWeight = FontWeight.Bold)
+                    Image(
+                        painterResource(roleIllustration),
+                        contentDescription = "Icono de $roleLabelText",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Fit,
+                    )
                 }
+                Text(
+                    roleLabelText,
+                    style = TextStyle(
+                        color = RoleLabel,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        shadow = Shadow(
+                            color = Color.Black.copy(alpha = 0.45f),
+                            offset = Offset(0f, 2f),
+                            blurRadius = 8f,
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -289,37 +589,20 @@ private fun WineLoginScreen(
 
     Column(
         modifier
+            .background(LoginOverlayBg)
             .verticalScroll(rememberScrollState())
-            .clip(RoundedCornerShape(26.dp))
-            .background(Color(0xFF24040E))
-            .border(1.dp, Color(0xFFB58A52).copy(alpha = 0.42f), RoundedCornerShape(26.dp))
-            .padding(bottom = 16.dp),
+            .padding(bottom = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Box(
-            Modifier.fillMaxWidth().background(WineHeader).padding(14.dp),
-        ) {
-            Box(
-                Modifier
-                    .align(Alignment.CenterStart)
-                    .clip(RoundedCornerShape(50))
-                    .background(Color(0xFF24040E).copy(alpha = 0.55f))
-                    .clickable(onClick = onBack)
-                    .padding(horizontal = 12.dp, vertical = 7.dp),
-            ) { Text("← Roles", color = Color(0xFFF6CF7D), fontSize = 12.sp, fontWeight = FontWeight.Bold) }
-            Column(Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Bienvenidos a", color = Color(0xFFFFF8EE), fontSize = 13.sp, fontWeight = FontWeight.Bold)
-                Text("AlgebraQuest", color = Color(0xFFF6CF7D), fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
-            }
-        }
+        AqHtmlHeader(backText = "← Roles", onBack = onBack)
 
         Column(
-            Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp),
+            Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Text(
                 "${role.badge}  ${role.title}",
-                color = Color(0xFFF6CF7D),
+                color = TitleAccent,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.ExtraBold,
                 modifier = Modifier.fillMaxWidth(),
@@ -331,7 +614,8 @@ private fun WineLoginScreen(
                 Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(14.dp))
-                    .background(Color(0xFF0A0205).copy(alpha = 0.45f))
+                    .background(Color(0x730A0205))
+                    .border(1.dp, RoleCardBorder, RoundedCornerShape(14.dp))
                     .padding(4.dp),
             ) {
                 AuthTab.entries.forEach { item ->
@@ -345,7 +629,12 @@ private fun WineLoginScreen(
                             .padding(vertical = 10.dp),
                         contentAlignment = Alignment.Center,
                     ) {
-                        Text(item.title, color = if (active) Color.White else Color(0xFFF6CF7D), fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        Text(
+                            item.title,
+                            color = if (active) Color.White else TitleAccent,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold,
+                        )
                     }
                 }
             }
@@ -404,76 +693,6 @@ private fun WineLoginScreen(
     }
 }
 
-// ---------------------------------------------------------------------------------------------
-// Cabecera / hero
-// ---------------------------------------------------------------------------------------------
-
-@Composable
-private fun Hero(state: UiState, vm: AppViewModel, large: Boolean) {
-    val imageSize: Dp = if (large) 180.dp else 88.dp
-    Column(
-        Modifier.widthIn(max = 520.dp).fillMaxWidth(),
-        horizontalAlignment = if (large) Alignment.Start else Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        HealthPill(state, vm)
-        if (large) {
-            Image(
-                painterResource(Res.drawable.personaje),
-                contentDescription = "Personaje de Álgebra Quest",
-                modifier = Modifier
-                    .size(imageSize)
-                    .clip(RoundedCornerShape(24.dp))
-                    .border(2.dp, Aq.Gold, RoundedCornerShape(24.dp)),
-                contentScale = ContentScale.Crop,
-            )
-            Title(centered = false, big = true)
-        } else {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(14.dp),
-            ) {
-                Image(
-                    painterResource(Res.drawable.personaje),
-                    contentDescription = "Personaje de Álgebra Quest",
-                    modifier = Modifier
-                        .size(imageSize)
-                        .clip(RoundedCornerShape(20.dp))
-                        .border(2.dp, Aq.Gold, RoundedCornerShape(20.dp)),
-                    contentScale = ContentScale.Crop,
-                )
-                Title(centered = false, big = false)
-            }
-        }
-        Text(
-            "2x + 3 = 11   →   x = 4",
-            color = Aq.Mint,
-            fontSize = if (large) 18.sp else 13.sp,
-            fontWeight = FontWeight.Bold,
-        )
-        Text(
-            "Resuelve misiones de Álgebra Universitaria, gana XP, monedas y trofeos.",
-            color = Aq.Muted,
-            fontSize = if (large) 16.sp else 13.sp,
-            textAlign = if (large) TextAlign.Start else TextAlign.Center,
-        )
-    }
-}
-
-@Composable
-private fun Title(centered: Boolean, big: Boolean) {
-    Column(horizontalAlignment = if (centered) Alignment.CenterHorizontally else Alignment.Start) {
-        Text("ÁLGEBRA", color = Aq.Text, fontSize = if (big) 40.sp else 24.sp, fontWeight = FontWeight.Bold)
-        Text(
-            "QUEST",
-            color = Aq.Gold,
-            fontSize = if (big) 64.sp else 36.sp,
-            fontWeight = FontWeight.ExtraBold,
-            lineHeight = if (big) 64.sp else 36.sp,
-        )
-    }
-}
-
 @Composable
 private fun HealthPill(state: UiState, vm: AppViewModel) {
     val color = when (state.serverHealthy) {
@@ -487,80 +706,19 @@ private fun HealthPill(state: UiState, vm: AppViewModel) {
         null -> "● Conectando…"
     }
     Box(
-        Modifier
-            .clip(RoundedCornerShape(50))
-            .background(Aq.Bg.copy(alpha = 0.7f))
-            .border(1.dp, color.copy(alpha = 0.6f), RoundedCornerShape(50))
-            .clickable { vm.checkServerHealth() }
-            .padding(horizontal = 12.dp, vertical = 5.dp),
-    ) { Text(text, color = color, fontSize = 11.sp, fontWeight = FontWeight.SemiBold) }
-}
-
-// ---------------------------------------------------------------------------------------------
-// Panel de autenticación (pestañas)
-// ---------------------------------------------------------------------------------------------
-
-@Composable
-private fun AuthPanel(state: UiState, vm: AppViewModel, tab: AuthTab, onTab: (AuthTab) -> Unit, modifier: Modifier) {
-    Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        AqCard(Modifier.fillMaxWidth(), accent = Aq.Purple) {
-            // Pestañas
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(14.dp))
-                    .background(Aq.Bg.copy(alpha = 0.6f))
-                    .padding(4.dp),
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-            ) {
-                AuthTab.entries.forEach { t ->
-                    val active = t == tab
-                    Box(
-                        Modifier
-                            .weight(1f)
-                            .clip(RoundedCornerShape(11.dp))
-                            .background(if (active) Aq.Purple else Color.Transparent)
-                            .clickable(enabled = !state.loading) { onTab(t) }
-                            .padding(vertical = 11.dp),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Text(
-                            t.title,
-                            color = if (active) Color.White else Aq.Muted,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold,
-                        )
-                    }
-                }
-            }
-
-            when (tab) {
-                AuthTab.LOGIN -> LoginForm(state, vm, onGoRegister = { onTab(AuthTab.REGISTER) })
-                AuthTab.REGISTER -> RegisterForm(state, vm, onGoLogin = { onTab(AuthTab.LOGIN) })
-            }
+        Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center,
+    ) {
+        Box(
+            Modifier
+                .clip(RoundedCornerShape(50))
+                .background(Aq.Bg.copy(alpha = 0.7f))
+                .border(1.dp, color.copy(alpha = 0.6f), RoundedCornerShape(50))
+                .clickable { vm.checkServerHealth() }
+                .padding(horizontal = 12.dp, vertical = 5.dp),
+        ) {
+            Text(text, color = color, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
         }
-
-        if (tab == AuthTab.LOGIN) BiometricPanel(state, vm)
-
-        // Servidor al que apunta la app (solo lectura; es el backend de Railway)
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Servidor", color = Aq.Muted, fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
-            Text(
-                state.serverUrl,
-                color = Aq.GoldSoft,
-                fontSize = 11.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.clickable { vm.checkServerHealth() },
-            )
-        }
-
-        Text(
-            "Kevin Gabriel Ramirez Vargas · 18-Nov-2026",
-            color = Aq.Muted.copy(alpha = 0.6f),
-            fontSize = 10.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-        )
     }
 }
 
@@ -575,62 +733,6 @@ private fun PasswordToggle(visible: Boolean, onToggle: () -> Unit) {
         fontSize = 12.sp,
         fontWeight = FontWeight.SemiBold,
     )
-}
-
-@Composable
-private fun LoginForm(state: UiState, vm: AppViewModel, onGoRegister: () -> Unit) {
-    var username by remember { mutableStateOf(state.biometricUser ?: "") }
-    var password by remember { mutableStateOf("") }
-    var show by remember { mutableStateOf(false) }
-    var usernameTouched by remember { mutableStateOf(false) }
-    var passwordTouched by remember { mutableStateOf(false) }
-
-    val userErr = if (usernameTouched) usernameError(username) else null
-    val passErr = if (passwordTouched && password.isBlank()) "La contraseña es obligatoria" else null
-    val valid = username.isNotBlank() && password.isNotEmpty() && usernameError(username) == null
-
-    Text("Bienvenido de nuevo", color = Aq.Gold, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-    Text("Ingresa con tu cuenta de alumno, supervisor o administrador.", color = Aq.Muted, fontSize = 12.sp)
-
-    AqTextField(
-        value = username,
-        onValueChange = { username = it; usernameTouched = true; if (state.error != null) vm.clearMessages() },
-        label = "Usuario",
-        enabled = !state.loading,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-        error = userErr,
-    )
-    AqTextField(
-        value = password,
-        onValueChange = { password = it; passwordTouched = true; if (state.error != null) vm.clearMessages() },
-        label = "Contraseña",
-        enabled = !state.loading,
-        visualTransformation = if (show) VisualTransformation.None else PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        trailing = { PasswordToggle(show) { show = !show } },
-        error = passErr,
-    )
-
-    MessageBanner(state.error, state.notice)
-
-    AqButton(
-        text = if (state.loading) "Validando con el servidor…" else "Entrar →",
-        onClick = { vm.login(username.trim(), password) },
-        modifier = Modifier.fillMaxWidth(),
-        enabled = valid && !state.loading,
-        loading = state.loading,
-    )
-
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
-        Text("¿Eres alumno nuevo? ", color = Aq.Muted, fontSize = 13.sp)
-        Text(
-            "Crea tu cuenta",
-            color = Aq.Gold,
-            fontSize = 13.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.clickable(enabled = !state.loading, onClick = onGoRegister).padding(4.dp),
-        )
-    }
 }
 
 @Composable
@@ -649,9 +751,9 @@ private fun RegisterForm(state: UiState, vm: AppViewModel, onGoLogin: () -> Unit
     val passErr = if (passwordTouched) passwordError(password) else null
     val confirmErr = if (confirmTouched) confirmError(password, confirm) else null
     val valid = usernameError(username) == null && nameErr == null &&
-        passwordError(password) == null && confirmError(password, confirm) == null
+            passwordError(password) == null && confirmError(password, confirm) == null
 
-    Text("Crea tu cuenta de alumno", color = Aq.Gold, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+    Text("Crea tu cuenta de alumno", color = TitleAccent, fontSize = 20.sp, fontWeight = FontWeight.Bold)
     Text(
         "Las cuentas nuevas son siempre de alumno. Supervisores y administradores los crea la institución.",
         color = Aq.Muted,
@@ -703,88 +805,18 @@ private fun RegisterForm(state: UiState, vm: AppViewModel, onGoLogin: () -> Unit
         loading = state.loading,
     )
 
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
         Text("¿Ya tienes cuenta? ", color = Aq.Muted, fontSize = 13.sp)
         Text(
             "Inicia sesión",
-            color = Aq.Gold,
+            color = TitleAccent,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.clickable(enabled = !state.loading, onClick = onGoLogin).padding(4.dp),
         )
-    }
-}
-
-// ---------------------------------------------------------------------------------------------
-// Sensor biométrico (huella dactilar y reconocimiento facial) por cuenta vinculada
-// ---------------------------------------------------------------------------------------------
-
-@Composable
-private fun BiometricPanel(state: UiState, vm: AppViewModel) {
-    val sensorAvailable = state.biometricStatus == BiometricStatus.AVAILABLE
-    var selected by remember(state.biometricCredentials) { mutableStateOf(state.biometricCredentials.firstOrNull()?.username) }
-    val cred = state.biometricCredentials.firstOrNull { it.username == selected }
-
-    AqCard(Modifier.fillMaxWidth(), accent = Aq.Mint) {
-        Text("Acceso biométrico", color = Aq.Mint, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-
-        if (state.biometricCredentials.isEmpty()) {
-            Text(
-                "Inicia sesión una vez con contraseña y activa tu huella o rostro para entrar más rápido.",
-                color = Aq.Muted,
-                fontSize = 12.sp,
-            )
-        } else {
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                state.biometricCredentials.forEach { c ->
-                    val active = c.username == selected
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(if (active) Aq.Panel2 else Aq.Bg.copy(alpha = 0.5f))
-                            .border(1.dp, if (active) Aq.Mint else Aq.Border, RoundedCornerShape(10.dp))
-                            .clickable { selected = c.username }
-                            .padding(horizontal = 12.dp, vertical = 9.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            "${Role.parse(c.role).badge} ${c.displayName} (${c.username})",
-                            color = Aq.Text,
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.weight(1f),
-                        )
-                        Text(Role.parse(c.role).title, color = Aq.Mint, fontSize = 11.sp)
-                    }
-                }
-            }
-
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                AqButton(
-                    text = "Huella dactilar",
-                    onClick = { vm.biometricLogin(BiometricMode.HUELLA, targetUsername = cred?.username) },
-                    modifier = Modifier.weight(1f),
-                    style = AqButtonStyle.Gold,
-                    enabled = !state.loading && sensorAvailable && cred != null,
-                )
-                AqButton(
-                    text = "Reconocimiento facial",
-                    onClick = { vm.biometricLogin(BiometricMode.ROSTRO, targetUsername = cred?.username) },
-                    modifier = Modifier.weight(1f),
-                    style = AqButtonStyle.Ghost,
-                    enabled = !state.loading && sensorAvailable && cred != null,
-                )
-            }
-        }
-
-        val note = when {
-            state.biometricStatus == BiometricStatus.NOT_ENROLLED ->
-                "Registra una huella o rostro en los Ajustes de Android para habilitar el lector."
-            !sensorAvailable -> "El sensor biométrico no está disponible en este dispositivo."
-            else -> null
-        }
-        if (note != null) Text(note, color = Aq.Muted, fontSize = 12.sp)
     }
 }
