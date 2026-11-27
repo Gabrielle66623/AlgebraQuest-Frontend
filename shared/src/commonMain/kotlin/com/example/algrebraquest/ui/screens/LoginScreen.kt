@@ -320,6 +320,21 @@ private fun AqHtmlHeader(
                         ),
                     ),
                 )
+                Spacer(Modifier.height(1.dp))
+                Text(
+                    "Eduardo Baruch",
+                    style = TextStyle(
+                        color = TitleAccent,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = (-0.8).sp,
+                        shadow = Shadow(
+                            color = Color.Black.copy(alpha = 0.55f),
+                            offset = Offset(0f, 4f),
+                            blurRadius = 16f,
+                        ),
+                    ),
+                )
             }
         }
         // Borde inferior dorado de 2px (.aq-header border-bottom)
